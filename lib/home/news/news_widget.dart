@@ -47,12 +47,20 @@ class _NewsWidgetState extends State<NewsWidget> {
           }
           // todo: server => respons =>success
           var newsList = snapshot.data?.articles ?? [];
-          return ListView.builder(
+          if(newsList.isEmpty){
+            return Center(
+              child: Text("No News Item Found",
+              style: Theme.of(context).textTheme.headlineMedium,),
+            );
+          }
+          else{
+            return ListView.builder(
               itemBuilder: (context, index) {
                 return NewsItem(news : newsList[index]);
               },
-          itemCount: newsList.length,
-          );
+              itemCount: newsList.length,
+            );
+          }
         },);
   }
 }

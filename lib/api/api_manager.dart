@@ -11,11 +11,12 @@ import '../model/sourse_response.dart';
 https://newsapi.org/v2/top-headlines/sources?apiKey=90a0f0216a894924bb71f18f83206eb6
 */
 class ApiManager{
-  static Future<SourseResponse> getSources()async{
+  static Future<SourseResponse> getSources(String categoryId)async{
     Uri url = Uri.https(ApiConstants.baseUrl,
     EndPoints.sourceApi,
         {
-      'apiKey': ApiConstants.apiKey
+      'apiKey': ApiConstants.apiKey,
+          'category' : categoryId
         });
     // SourseResponse.fromJson( jsonDecode(response.body));
     try{

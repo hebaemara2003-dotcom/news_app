@@ -7,12 +7,12 @@ import 'package:naws_app/utils/app_colors.dart';
 import 'package:naws_app/utils/app_style.dart';
 
 import '../../api/api_manager.dart';
+import '../../model/category.dart';
 
 class CategoryDetails extends StatefulWidget {
-  final String errorMessage ;
-  final VoidCallback onPressed ;
+  final Category category ;
   const CategoryDetails({super.key,
-  required this.onPressed, required this.errorMessage});
+   required this.category});
 
   @override
   State<CategoryDetails> createState() => _CategoryDetailsState();
@@ -22,7 +22,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SourseResponse>(
-      future: ApiManager.getSources(),
+      future: ApiManager.getSources(widget.category.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // todo : loading
@@ -31,7 +31,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         else if (snapshot.hasError) {
           return MainErrorWidget(errorMessage: 'Something went Wrong'
               , onPressed: () {
-            ApiManager.getSources();
+            ApiManager.getSources(widget.category.id);
             setState(() {
 
             });
@@ -42,7 +42,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           return MainErrorWidget(
             errorMessage: snapshot.data!.message!
             , onPressed: () {
-              ApiManager.getSources();
+              ApiManager.getSources(widget.category.id);
               setState(() {
 
               });

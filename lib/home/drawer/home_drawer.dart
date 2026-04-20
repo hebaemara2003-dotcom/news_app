@@ -9,7 +9,8 @@ import 'package:naws_app/utils/media_query_extention.dart';
 import '../../utils/app_assets.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({super.key});
+  final VoidCallback onDrawerItemClick ;
+  const HomeDrawer({super.key, required this.onDrawerItemClick});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,14 @@ class HomeDrawer extends StatelessWidget {
           color: AppColors.whiteColor,
           child: Text('News App',style: AppStyle.bold24black,),
         ),
-        DrawerItem(iconName: AppAssets.homeIcon,
-          text: 'Go To Home',),
+        InkWell(
+          onTap: (){
+            // todo: calling
+            onDrawerItemClick();
+          },
+          child: DrawerItem(iconName: AppAssets.homeIcon,
+            text: 'Go To Home',),
+        ),
         DividerItem(),
         DrawerItem(iconName: AppAssets.themeIcon,
           text: 'Theme',),
